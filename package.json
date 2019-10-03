@@ -27,7 +27,8 @@
     "nuxt": "^2.0.0",
     "prismjs": "^1.17.1",
     "sass-loader": "^8.0.0",
-    "style-loader": "^1.0.0"
+    "style-loader": "^1.0.0",
+    "vue-scrollto": "^2.17.1"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^1.0.1",

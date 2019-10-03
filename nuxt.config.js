@@ -48,7 +48,8 @@ export default {
     {
       src: '~plugins/font-awesome',
       ssr: false
-    }
+    },
+    '~/plugins/vue-scrollto'
   ],
   /*
    ** Nuxt.js dev-modules
