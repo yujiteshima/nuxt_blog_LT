@@ -1,10 +1,18 @@
 <template>
   <b-container>
-    <b-row class="mt-4 d-flex justify-content-center">
+    <b-row v-if="!isWorks" class="pt-4">
+      <b-col cols="10" offset="1">
+        <b-col cols="12" class="markdown-content">
+          <div v-html="$md.render(post.content)"></div>
+        </b-col>
+      </b-col>
+    </b-row>
+
+    <b-row v-if="isWorks" class="mt-4 d-flex justify-content-center">
       <b-card-group deck>
         <b-col
-          v-for="post in itemsA"
-          :key="post.id"
+          v-for="item in portf"
+          :key="item.id"
           sm="6"
           :md="colParm"
           class="text-center d-flex justify-content-center my-3"
@@ -12,57 +20,26 @@
           <b-card
             no-body
             class="mb-2 item-card zoom point"
-            @click="detail(post.slug)"
+            @click="detail(item.slug)"
           >
             <b-img-lazy
               v-bind="mainProps"
-              :src="post.thumbnail.url"
+              :src="item.thumbnail.url"
               center
               fluid
               alt="category Image"
             ></b-img-lazy>
             <b-card-body>
-              <b-card-title class="title">{{ post.title }}</b-card-title>
+              <b-card-title class="title">{{ item.title }}</b-card-title>
               <b-card-text>
-                <span class="descript">{{ post.description }}</span>
+                <span class="descript">{{ item.description }}</span>
                 <br />
-                <span class="tags">
-                  <fa-icon icon="calendar-alt" />
+                <fa-icon icon="calendar-alt" class="tags" />
+                <span class="date">
+                  {{ dateFormat(item.date, 'YYYY/MM/DD') }}
                 </span>
-                <span class="date">{{
-                  dateFormat(post.date, 'YYYY/MM/DD')
-                }}</span>
                 <br />
               </b-card-text>
-              <fa-icon v-if="post.tag1" icon="tags" class="tags" />
-              <b-badge
-                v-if="post.tag1"
-                variant="secondary"
-                class="badge"
-                @click.stop="select(post.tag1)"
-                >{{ post.tag1 }}</b-badge
-              >
-              <b-badge
-                v-if="post.tag2"
-                variant="secondary"
-                class="badge"
-                @click.stop="select(post.tag2)"
-                >{{ post.tag2 }}</b-badge
-              >
-              <b-badge
-                v-if="post.tag3"
-                variant="secondary"
-                class="badge"
-                @click.stop="select(post.tag3)"
-                >{{ post.tag3 }}</b-badge
-              >
-              <b-badge
-                v-if="post.tag4"
-                variant="secondary"
-                class="badge"
-                @click.stop="select(post.tag4)"
-                >{{ post.tag4 }}</b-badge
-              >
             </b-card-body>
           </b-card>
         </b-col>
@@ -77,10 +54,8 @@ import ja from 'date-fns/locale/ja'
 import parse from 'date-fns/parse'
 
 import { mapState } from 'vuex'
-
+import Prism from '~/plugins/prism'
 export default {
-  components: {},
-  scrollToTop: true,
   data() {
     return {
       mainProps: {
@@ -95,32 +70,58 @@ export default {
     }
   },
   computed: {
-    ...mapState(['posts', 'items']),
-    itemsA() {
-      return this.items.filter((v) => !v.slug.match(/about-page|contact|works/))
-    },
+    ...mapState(['posts', 'portf']),
     colParm() {
       let colnum = '4'
-      if (this.items.length === 2) {
+      if (this.portf.length === 2) {
         colnum = '6'
-      } else if (this.items.length === 1) {
+      } else if (this.portf.length === 1) {
         colnum = '12'
       }
       return colnum
+    },
+    post() {
+      const targetPost = this.posts.find(
+        (v) => v.slug === this.$route.params.slug
+      )
+      return targetPost
+    },
+    isWorks() {
+      if (
+        // this.$route.path.match(/posts\/[A-Za-z0-9]+/) &&
+        this.$route.path === '/works'
+      ) {
+        return true
+      } else {
+        return false
+      }
     }
   },
   head() {
-    return {
-      title: 'TOP'
+    if (
+      // this.$route.path.match(/posts\/[A-Za-z0-9]+/) &&
+      this.$route.path === '/works'
+    ) {
+      return {
+        title: 'works'
+      }
+    } else {
+      return {
+        title: this.post.slug
+      }
     }
   },
+  mounted() {
+    Prism.highlightAll()
+  },
   methods: {
-    detail(slug) {
-      this.$router.push(`./${slug}`)
-    },
     dateFormat(date = new Date(), formatStr) {
-      const fmtdate = format(parse(date), formatStr, { locale: ja })
-      return fmtdate
+      return format(parse(date), formatStr, { locale: ja })
+    },
+    detail(slug) {
+      // console.log(slug)
+      this.$router.push(`./${slug}`)
+      // this.$router.push({ path: `/works-portfolio-site` })
     },
     async select(tag) {
       const selectPosts = await this.posts.filter(
