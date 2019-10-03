@@ -5,8 +5,7 @@ export default {
    */
   head: {
     title: '%s | Teshi Blog',
-    meta: [
-      {
+    meta: [{
         charset: 'utf-8'
       },
       {
@@ -19,13 +18,11 @@ export default {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [
-      {
-        rel: 'icon',
-        type: 'image/x-icon',
-        href: '/favicon.ico'
-      }
-    ]
+    link: [{
+      rel: 'icon',
+      type: 'image/x-icon',
+      href: '/favicon.ico'
+    }]
   },
   router: {
     linkPrefetchedClass: 'nuxt-link-prefetched'
@@ -43,12 +40,10 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [
-    {
-      src: '~plugins/font-awesome',
-      ssr: false
-    }
-  ],
+  plugins: [{
+    src: '~plugins/font-awesome',
+    ssr: false
+  }],
   /*
    ** Nuxt.js dev-modules
    */
@@ -64,8 +59,24 @@ export default {
     'bootstrap-vue/nuxt',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/markdownit'
   ],
+  /*
+   ** Markdownit module configuration
+   */
+  markdownit: {
+    injected: true, // $mdを利用してmarkdownをhtmlにレンダリングする
+    breaks: true, // 改行コードを<br>に変換する
+    html: true, // HTML タグを有効にする
+    linkify: true, // URLに似たテキストをリンクに自動変換する
+    typography: true, // 言語に依存しないきれいな 置換 + 引用符 を有効にします。
+    use: [
+      'markdown-it-toc' // 目次を作るためのライブラリ。別途インストールが必要
+      // "markdown-it-table-of-contents",
+      // 'markdown-it-toc-and-anchor'
+    ]
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
