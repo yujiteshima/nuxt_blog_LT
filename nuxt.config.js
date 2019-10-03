@@ -5,7 +5,8 @@ export default {
    */
   head: {
     title: '%s | Teshi Blog',
-    meta: [{
+    meta: [
+      {
         charset: 'utf-8'
       },
       {
@@ -18,11 +19,13 @@ export default {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [{
-      rel: 'icon',
-      type: 'image/x-icon',
-      href: '/favicon.ico'
-    }]
+    link: [
+      {
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/favicon.ico'
+      }
+    ]
   },
   router: {
     linkPrefetchedClass: 'nuxt-link-prefetched'
@@ -36,11 +39,16 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['@fortawesome/fontawesome-svg-core/styles.css'],
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [
+    {
+      src: '~plugins/font-awesome',
+      ssr: false
+    }
+  ],
   /*
    ** Nuxt.js dev-modules
    */
