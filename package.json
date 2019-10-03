@@ -10,7 +10,8 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "test": "jest"
+    "test": "jest",
+    "fix": "yarn lint --fix"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
@@ -24,6 +25,7 @@
     "markdown-it-toc": "^1.1.0",
     "node-sass": "^4.12.0",
     "nuxt": "^2.0.0",
+    "prismjs": "^1.17.1",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0"
   },
