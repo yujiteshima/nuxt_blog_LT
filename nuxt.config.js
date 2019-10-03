@@ -24,6 +24,9 @@ export default {
       href: '/favicon.ico'
     }]
   },
+  router: {
+    linkPrefetchedClass: 'nuxt-link-prefetched'
+  },
   /*
    ** Customize the progress-bar color
    */
