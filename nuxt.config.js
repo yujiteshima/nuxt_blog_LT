@@ -101,7 +101,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    analyze: true,
+    // analyze: true,
     extend(config, ctx) {
       if (ctx.isDev && ctx.isClient) {
         config.devtool = 'eval-source-map'

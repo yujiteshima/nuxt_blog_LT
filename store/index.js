@@ -69,8 +69,7 @@ export const actions = {
     //     }
     //   `
     // })
-
-    commit('setPosts', response.data.posts)
+    commit('setPosts', response.posts)
   },
   selectPosts({ commit }, items) {
     commit('setItems', items)

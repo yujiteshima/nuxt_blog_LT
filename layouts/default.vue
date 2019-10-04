@@ -6,8 +6,10 @@
   </div>
 </template>
 <script>
-import Top from '../components/Top'
-import Footer from '../components/Footer'
+// import Top from '../components/Top'
+const Top = () => import('../components/Top')
+// import Footer from '../components/Footer'
+const Footer = () => import('../components/Footer.vue')
 export default {
   components: {
     Top,

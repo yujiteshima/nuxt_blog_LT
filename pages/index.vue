@@ -26,15 +26,15 @@
               <b-card-text>
                 <span class="descript">{{ post.description }}</span>
                 <br />
-                <span class="tags">
-                  <fa-icon icon="calendar-alt" />
-                </span>
+
+                <fa-icon icon="calendar-alt" class="tags"></fa-icon>
+
                 <span class="date">{{
                   dateFormat(post.date, 'YYYY/MM/DD')
                 }}</span>
                 <br />
               </b-card-text>
-              <fa-icon v-if="post.tag1" icon="tags" class="tags" />
+              <fa-icon v-if="post.tag1" icon="tags" class="tags"></fa-icon>
               <b-badge
                 v-if="post.tag1"
                 variant="secondary"

@@ -7,7 +7,7 @@
           cols="12"
           class="d-flex align-items-center justify-content-center"
         >
-          <b-row v-if="!isWorks">
+          <b-row v-if="!isWorks" class="fade-in">
             <b-col
               cols="12"
               class="d-flex align-items-center justify-content-center"
@@ -76,16 +76,18 @@
               class="detail-text d-flex align-items-center justify-content-left"
             >
               <b-row>
-                <b-col cols="12" class="blog-title" @click="goHome">{{
-                  linkName
-                }}</b-col>
+                <b-col cols="12" class="blog-title" @click="goHome">
+                  {{ linkName }}
+                </b-col>
                 <b-col cols="12" class="title">{{ post.title }}</b-col>
                 <b-col cols="12" class="info">
-                  <fa-icon icon="calendar-alt" class="tags" />
+                  <fa-icon icon="calendar-alt" class="tags"></fa-icon>
                   {{ dateFormat(post.date, 'YYYY/MM/DD') }}
-                  <span class="pl-3">
-                    <fa-icon v-if="post.tag1" icon="tags" class="tags" />
-                  </span>
+                  <fa-icon
+                    v-if="post.tag1"
+                    icon="tags"
+                    class="tags pl-3"
+                  ></fa-icon>
                   <b-badge
                     v-if="post.tag1"
                     variant="secondary"
@@ -295,6 +297,22 @@ export default {
   .backhome:hover::before,
   .backhome:hover::after {
     width: 100%;
+  }
+
+  .fade-in {
+    animation-name: fadein;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+  }
+  @keyframes fadein {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 
